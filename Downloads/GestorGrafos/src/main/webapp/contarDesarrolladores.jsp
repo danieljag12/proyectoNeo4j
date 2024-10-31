@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -5,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mostrar Aplicaciones por Región</title>
+    <title>Buscar Desarrolladores por Tecnologías</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,43 +64,54 @@
 </head>
 <body>
 
-<h1>Mostrar Aplicaciones por Región</h1>
+<h1>Buscar Desarrolladores por Tecnologías</h1>
 
+<!-- Formulario para ingresar los nombres de las tecnologías -->
 <div class="form-container">
-    <form action="MostrarAplicacionesServlet" method="post">
-        <label for="regionNombre">Nombre de la Región:</label>
-        <input type="text" name="regionNombre" id="regionNombre" required>
-        <button type="submit" class="load-button">Mostrar</button>
+    <form action="buscarDesarrolladoresServlet" method="post">
+        <label for="tecnologia1">Nombre de la Tecnología 1:</label>
+        <input type="text" name="tecnologia1" id="tecnologia1" required>
+        <br><br>
+        <label for="tecnologia2">Nombre de la Tecnología 2:</label>
+        <input type="text" name="tecnologia2" id="tecnologia2" required>
+        <br><br>
+        <button type="submit" class="load-button">Buscar</button>
     </form>
 </div>
 
+<!-- Muestra los resultados de la búsqueda si existen -->
 <%
     Map<String, Object> resultado = (Map<String, Object>) request.getAttribute("resultado");
-    String regionNombre = (String) request.getAttribute("regionNombre");
+    String tecnologia1 = (String) request.getAttribute("tecnologia1");
+    String tecnologia2 = (String) request.getAttribute("tecnologia2");
 
     if (resultado != null) {
-        java.util.List<Map<String, String>> aplicaciones = (java.util.List<Map<String, String>>) resultado.get("aplicaciones");
+        List<Map<String, String>> desarrolladores = (List<Map<String, String>>) resultado.get("desarrolladores");
 %>
         <table style="display: table;">
             <thead>
                 <tr>
-                    <th>Aplicación</th>
-                    <th>Desarrollador</th>
+                    <th>Desarrollador 1</th>
+                    <th>Desarrollador 2</th>
                 </tr>
             </thead>
             <tbody>
-                <%
-                    for (Map<String, String> app : aplicaciones) {
-                %>
+<%
+        for (Map<String, String> pair : desarrolladores) {
+%>
                 <tr>
-                    <td><%= app.get("Aplicación") %></td>
-                    <td><%= app.get("Desarrollador") %></td>
+                    <td><%= pair.get("Desarrollador1") %></td>
+                    <td><%= pair.get("Desarrollador2") %></td>
                 </tr>
-                <%
-                    }
-                %>
+<%
+        }
+%>
             </tbody>
         </table>
+<%
+    } else {
+%>
+        <div id="no-results-message" style="display: none;"></div>
 <%
     }
 %>

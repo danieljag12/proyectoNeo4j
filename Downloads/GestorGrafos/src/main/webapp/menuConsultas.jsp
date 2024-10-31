@@ -39,7 +39,7 @@
     <a href="buscarAplicacionesSimilares.jsp">Consulta 2</a>
     <a href="buscarAplicaciones.jsp">Consulta 3</a>
     <a href="mostrarTecnologias.jsp">Consulta 4</a>
-    <a href="">Consulta 5</a>
+    <a href="contarDesarrolladores.jsp">Consulta 5</a>
     <a href="mostrarAplicaciones.jsp">Consulta 6</a>
     <a href="index.jsp">Menú principal</a>
 </div>
